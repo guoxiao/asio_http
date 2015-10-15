@@ -90,6 +90,35 @@ private:
   } state_;
 };
 
+inline bool request_parser::is_char(int c)
+{
+  return c >= 0 && c <= 127;
+}
+
+inline bool request_parser::is_ctl(int c)
+{
+  return (c >= 0 && c <= 31) || (c == 127);
+}
+
+inline bool request_parser::is_tspecial(int c)
+{
+  switch (c)
+  {
+  case '(': case ')': case '<': case '>': case '@':
+  case ',': case ';': case ':': case '\\': case '"':
+  case '/': case '[': case ']': case '?': case '=':
+  case '{': case '}': case ' ': case '\t':
+    return true;
+  default:
+    return false;
+  }
+}
+
+inline bool request_parser::is_digit(int c)
+{
+  return c >= '0' && c <= '9';
+}
+
 } // namespace server
 } // namespace http
 
