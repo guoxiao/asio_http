@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
   // Initialise the server.
-  http::server::server s("127.0.0.1", "8080", 1);
+  http::server::server s("127.0.0.1", "8080", 8);
 
   s.add_handler("/hello", [](const http::server::request &req, http::server::reply &rep) {
     using namespace http::server;
