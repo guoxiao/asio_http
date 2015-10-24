@@ -62,7 +62,7 @@ public:
   /// invalid.
   static bool url_decode(const std::string& in, std::string& out);
 private:
-  std::vector<std::tuple<std::string, handle>> handler_list_;
+  std::vector<std::pair<std::string, handle>> handler_list_;
 };
 
 } // namespace server

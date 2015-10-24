@@ -54,9 +54,9 @@ void request_handler::handle_request(request& req, reply& rep) {
   req.uri = request_path;
 
   for (auto &&item : handler_list_) {
-    const std::string& key = std::get<0>(item);
+    const std::string& key = item.first;
     if (req.uri.substr(0, key.length()) == key) {
-      std::get<1>(item)(req, rep);
+      item.second(req, rep);
       return;
     }
   }
