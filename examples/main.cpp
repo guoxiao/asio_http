@@ -1,7 +1,7 @@
 #include <iostream>
-#include "http/server.hpp"
-#include "http/request.hpp"
-#include "http/reply.hpp"
+#include <http/server.hpp>
+#include <http/request.hpp>
+#include <http/reply.hpp>
 
 int main(int argc, char *argv[]) {
   // Initialise the server.
