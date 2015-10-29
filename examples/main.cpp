@@ -5,10 +5,10 @@
 
 int main(int argc, char *argv[]) {
   // Initialise the server.
-  http::server::server s("127.0.0.1", "8080", 1);
+  using namespace http::server;
+  server s("127.0.0.1", "8080", 1);
 
-  s.add_handler("/hello", [](const http::server::request &req, http::server::reply &rep) {
-    using namespace http::server;
+  s.add_handler("/hello", [](const request &req, reply &rep) {
     rep.content = "hello world!";
     rep.status = reply::ok;
     rep.headers.resize(2);
