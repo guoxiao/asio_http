@@ -11,11 +11,8 @@ int main(int argc, char *argv[]) {
   s.add_handler("/hello", [](const request &req, reply &rep) {
     rep.content = "hello world!";
     rep.status = reply::ok;
-    rep.headers.resize(2);
-    rep.headers[0].name = "Content-Length";
-    rep.headers[0].value = std::to_string(rep.content.size());
-    rep.headers[1].name = "Content-Type";
-    rep.headers[1].value = "application/json";
+    rep.headers.emplace_back("Content-Length", std::to_string(rep.content.size()));
+    rep.headers.emplace_back("Content-Type", "text/plain");
   });
 
   // Run the server until stopped.
