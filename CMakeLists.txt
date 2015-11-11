@@ -20,3 +20,8 @@ if(BUILD_EXAMPLE)
     target_link_libraries(example asio_http)
     set_property(TARGET example PROPERTY CXX_STANDARD 11)
 endif()
+
+install(TARGETS asio_http
+    LIBRARY DESTINATION lib
+)
+install(DIRECTORY include/http DESTINATION include)
