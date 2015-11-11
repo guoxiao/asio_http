@@ -14,7 +14,7 @@ rep.headers.resize(2);
 rep.headers[0].name = "Content-Length";
 rep.headers[0].value = std::to_string(rep.content.size());
 rep.headers[1].name = "Content-Type";
-rep.headers[1].value = "application/json";
+rep.headers[1].value = "text/plain";
 });
 
 // Run the server until stopped.
