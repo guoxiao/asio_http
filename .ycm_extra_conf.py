@@ -58,6 +58,7 @@ flags = [
 '-isystem', '/usr/lib/clang/3.7.0/include',
 '-isystem', './include',
 '-I', './src',
+'-i', '.',
 ]
 
 
