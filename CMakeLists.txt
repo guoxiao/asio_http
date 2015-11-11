@@ -2,8 +2,14 @@ cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_VERBOSE_MAKEFILE off)
 project(asio_http C CXX)
 
-include_directories(SYSTEM include)
-include_directories(include/http)
+include_directories(SYSTEM
+    deps/asio/asio/include
+    include
+)
+include_directories(
+    src
+    include/http
+)
 file(GLOB SOURCE_FILES src/*.cpp)
 add_library(asio_http SHARED ${SOURCE_FILES})
 target_link_libraries(asio_http pthread)
