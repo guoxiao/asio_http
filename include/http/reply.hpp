@@ -56,6 +56,9 @@ struct reply
 
   /// Get a stock reply.
   static reply stock_reply(status_type status);
+
+  /// Get a json reply
+  static reply json_reply(const std::string &json);
 };
 
 } // namespace server

@@ -251,5 +251,17 @@ reply reply::stock_reply(reply::status_type status)
   return rep;
 }
 
+reply reply::json_reply(const std::string &json) {
+  reply rep;
+  rep.status = status_type::ok;
+  rep.content = json;
+  rep.headers.resize(2);
+  rep.headers[0].name = "Content-Length";
+  rep.headers[0].value = std::to_string(rep.content.size());
+  rep.headers[1].name = "Content-Type";
+  rep.headers[1].value = "application/json";
+  return rep;
+}
+
 } // namespace server
 } // namespace http
