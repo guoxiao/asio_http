@@ -57,8 +57,10 @@ flags = [
 '-isystem', '/usr/include/c++/5.1.1/backward',
 '-isystem', '/usr/lib/clang/3.7.0/include',
 '-isystem', './include',
+'-isystem', './include/http',
+'-isystem', './deps/asio/asio/include',
 '-I', './src',
-'-i', '.',
+'-I', '.',
 ]
 
 
