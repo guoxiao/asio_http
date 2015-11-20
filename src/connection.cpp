@@ -11,6 +11,7 @@
 #include "connection.hpp"
 #include <utility>
 #include <vector>
+#include <iostream>
 #include "request_handler.hpp"
 
 namespace http {
@@ -19,7 +20,8 @@ namespace server {
 connection::connection(asio::io_service& io_service, request_handler& handler)
   : socket_(io_service),
     request_handler_(handler),
-    strand_(io_service)
+    strand_(io_service),
+    keep_alive_(false)
 {
 }
 
@@ -51,6 +53,15 @@ void connection::do_read()
 
           if (result == request_parser::good)
           {
+            auto it = std::find_if(request_.headers.begin(), request_.headers.end(), [](header item) {
+                return item.name == "Connection";
+            });
+            if (it != request_.headers.end()) {
+              std::transform(it->value.begin(), it->value.end(), it->value.begin(), ::tolower);
+              keep_alive_ = it->value == "keep-alive";
+            }
+            request_.keep_alive = keep_alive_;
+
             request_handler_.handle_request(request_, reply_);
             do_write();
           }
@@ -73,9 +84,19 @@ void connection::do_write()
   asio::async_write(socket_, reply_.to_buffers(),
                     strand_.wrap([this, self](std::error_code ec, std::size_t)
       {
+        std::cout << "error_code" << ec.message() << std::endl;
         if (!ec)
         {
-          // Initiate graceful connection closure.
+          if (keep_alive_) {
+            request_parser_.reset();
+            do_read();
+          } else {
+            // Initiate graceful connection closure.
+            asio::error_code ignored_ec;
+            socket_.shutdown(asio::ip::tcp::socket::shutdown_both,
+                ignored_ec);
+          }
+        } else {
           asio::error_code ignored_ec;
           socket_.shutdown(asio::ip::tcp::socket::shutdown_both,
             ignored_ec);

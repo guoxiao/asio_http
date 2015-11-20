@@ -68,6 +68,8 @@ private:
   reply reply_;
 
   asio::io_service::strand strand_;
+
+  bool keep_alive_;
 };
 
 typedef std::shared_ptr<connection> connection_ptr;

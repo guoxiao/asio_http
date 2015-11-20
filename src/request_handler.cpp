@@ -57,6 +57,11 @@ void request_handler::handle_request(request& req, reply& rep) {
     const std::string& key = item.first;
     if (req.uri.substr(0, key.length()) == key) {
       rep = item.second(req);
+      if (req.keep_alive) {
+        rep.headers["Connection"] = "keep-alive";
+      } else {
+        rep.headers["Connection"] = "close";
+      }
       return;
     }
   }
