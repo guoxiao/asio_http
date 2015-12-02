@@ -56,7 +56,7 @@ void connection::do_read()
           }
           else if (result == request_parser::bad)
           {
-            reply_ = reply::stock_reply(reply::bad_request);
+            reply_ = reply(reply::bad_request);
             do_write();
           }
           else

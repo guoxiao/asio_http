@@ -12,9 +12,8 @@
 #define HTTP_REPLY_HPP
 
 #include <string>
-#include <vector>
+#include <map>
 #include <asio.hpp>
-#include "header.hpp"
 
 namespace http {
 namespace server {
@@ -43,8 +42,12 @@ struct reply
     service_unavailable = 503
   } status;
 
+  reply(){};
+
+  explicit reply(status_type status_code);
+
   /// The headers to be included in the reply.
-  std::vector<header> headers;
+  std::map<std::string, std::string> headers;
 
   /// The content to be sent in the reply.
   std::string content;
@@ -53,9 +56,6 @@ struct reply
   /// underlying memory blocks, therefore the reply object must remain valid and
   /// not be changed until the write operation has completed.
   std::vector<asio::const_buffer> to_buffers();
-
-  /// Get a stock reply.
-  static reply stock_reply(status_type status);
 
   /// Get a json reply
   static reply json_reply(const std::string &json);

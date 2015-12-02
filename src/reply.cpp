@@ -103,12 +103,11 @@ std::vector<asio::const_buffer> reply::to_buffers()
 {
   std::vector<asio::const_buffer> buffers;
   buffers.push_back(status_strings::to_buffer(status));
-  for (std::size_t i = 0; i < headers.size(); ++i)
+  for (auto &h : headers)
   {
-    header& h = headers[i];
-    buffers.push_back(asio::buffer(h.name));
+    buffers.push_back(asio::buffer(h.first));
     buffers.push_back(asio::buffer(misc_strings::name_value_separator));
-    buffers.push_back(asio::buffer(h.value));
+    buffers.push_back(asio::buffer(h.second));
     buffers.push_back(asio::buffer(misc_strings::crlf));
   }
   buffers.push_back(asio::buffer(misc_strings::crlf));
@@ -238,28 +237,18 @@ static std::string to_string(reply::status_type status)
 
 } // namespace stock_replies
 
-reply reply::stock_reply(reply::status_type status)
-{
-  reply rep;
-  rep.status = status;
-  rep.content = stock_replies::to_string(status);
-  rep.headers.resize(2);
-  rep.headers[0].name = "Content-Length";
-  rep.headers[0].value = std::to_string(rep.content.size());
-  rep.headers[1].name = "Content-Type";
-  rep.headers[1].value = "text/html";
-  return rep;
+reply::reply(status_type status_code) : status(status_code) {
+  content = stock_replies::to_string(status);
+  headers["Content-Length"] = std::to_string(content.size());
+  headers["Content-Type"] = "text/html";
 }
 
 reply reply::json_reply(const std::string &json) {
   reply rep;
   rep.status = status_type::ok;
   rep.content = json;
-  rep.headers.resize(2);
-  rep.headers[0].name = "Content-Length";
-  rep.headers[0].value = std::to_string(rep.content.size());
-  rep.headers[1].name = "Content-Type";
-  rep.headers[1].value = "application/json";
+  rep.headers["Content-Length"] = std::to_string(json.size());
+  rep.headers["Content-Type"] = "application/json";
   return rep;
 }
 

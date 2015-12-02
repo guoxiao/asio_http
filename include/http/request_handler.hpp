@@ -46,7 +46,7 @@ namespace server {
 class request_handler
 {
 public:
-  using handle = std::function<void(const request&, reply&)>;
+  using handle = std::function<reply(const request&)>;
   request_handler(const request_handler&) = delete;
   request_handler& operator=(const request_handler&) = delete;
 

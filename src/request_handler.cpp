@@ -48,7 +48,7 @@ void request_handler::handle_request(request& req, reply& rep) {
   // Decode url to path.
   std::string request_path;
   if (!url_decode(req.uri, request_path)) {
-    rep = reply::stock_reply(reply::bad_request);
+    rep = reply(reply::bad_request);
     return;
   }
   req.uri = request_path;
@@ -56,11 +56,11 @@ void request_handler::handle_request(request& req, reply& rep) {
   for (auto &&item : handler_list_) {
     const std::string& key = item.first;
     if (req.uri.substr(0, key.length()) == key) {
-      item.second(req, rep);
+      rep = item.second(req);
       return;
     }
   }
-  rep = reply::stock_reply(reply::not_found);
+  rep = reply(reply::not_found);
 }
 
 bool request_handler::url_decode(const std::string& in, std::string& out)

@@ -104,8 +104,6 @@ void server::do_accept()
         if (!ec)
         {
           new_connection_->start();
-          //connection_manager_.start(std::make_shared<connection>(
-          //    io_service_, connection_manager_, request_handler_));
         }
 
         do_accept();
