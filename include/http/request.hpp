@@ -12,8 +12,7 @@
 #define HTTP_REQUEST_HPP
 
 #include <string>
-#include <vector>
-#include "header.hpp"
+#include <map>
 
 namespace http {
 namespace server {
@@ -25,7 +24,7 @@ struct request
   std::string uri;
   int http_version_major;
   int http_version_minor;
-  std::vector<header> headers;
+  std::map<std::string, std::string> headers;
 };
 
 } // namespace server

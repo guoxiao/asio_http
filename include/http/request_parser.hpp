@@ -88,6 +88,9 @@ private:
     expecting_newline_2,
     expecting_newline_3
   } state_;
+
+  std::string header_name_;
+  std::string header_value_;
 };
 
 inline bool request_parser::is_char(int c)
