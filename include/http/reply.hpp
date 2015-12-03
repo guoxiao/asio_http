@@ -46,11 +46,12 @@ struct reply
 
   explicit reply(status_type status_code);
 
+  /// The content to be sent in the reply.
+  std::string content;
+
   /// The headers to be included in the reply.
   std::map<std::string, std::string> headers;
 
-  /// The content to be sent in the reply.
-  std::string content;
 
   /// Convert the reply into a vector of buffers. The buffers do not own the
   /// underlying memory blocks, therefore the reply object must remain valid and
