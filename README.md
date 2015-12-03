@@ -7,14 +7,13 @@ A simple multithread async http server based on asio
 using namespace http::server;
 server s("127.0.0.1", "8080", 1);
 
-s.add_handler("/hello", [](const request &req, reply &rep) {
-rep.content = "hello world!";
-rep.status = reply::ok;
-rep.headers.resize(2);
-rep.headers[0].name = "Content-Length";
-rep.headers[0].value = std::to_string(rep.content.size());
-rep.headers[1].name = "Content-Type";
-rep.headers[1].value = "text/plain";
+s.add_handler("/hello", [](const request &req) {
+  reply rep;
+  rep.content = "hello world!";
+  rep.status = reply::ok;
+  rep.headers["Content-Length"] = std::to_string(rep.content.size());
+  rep.headers["Content-Type"] = "text/plain";
+  return rep;
 });
 
 // Run the server until stopped.
