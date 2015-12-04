@@ -9,10 +9,7 @@ int main(int argc, char *argv[]) {
   server s("127.0.0.1", "8080", 1);
 
   s.add_handler("/hello", [](const request &req) {
-    reply rep;
-    rep.content = "hello world!";
-    rep.status = reply::ok;
-    rep.headers["Content-Length"] = std::to_string(rep.content.size());
+    reply rep("hello world");
     rep.headers["Content-Type"] = "text/plain";
     return rep;
   });

@@ -42,7 +42,9 @@ struct reply
     service_unavailable = 503
   } status;
 
-  reply(){};
+  reply();
+
+  explicit reply(const std::string& c);
 
   explicit reply(status_type status_code);
 

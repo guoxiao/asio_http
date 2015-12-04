@@ -237,6 +237,15 @@ static std::string to_string(reply::status_type status)
 
 } // namespace stock_replies
 
+reply::reply()
+  : status(reply::ok) {}
+
+reply::reply(const std::string &c)
+  : status(reply::ok),
+    content(c),
+    headers({{"Content-Length", std::to_string(content.size())},
+             {"Content-Type", "text/html"}}) {}
+
 reply::reply(status_type status_code)
   : status(status_code),
     content(stock_replies::to_string(status)),
@@ -244,10 +253,7 @@ reply::reply(status_type status_code)
              {"Content-Type", "text/html"}}) {}
 
 reply reply::json_reply(const std::string &json) {
-  reply rep;
-  rep.status = status_type::ok;
-  rep.content = json;
-  rep.headers["Content-Length"] = std::to_string(json.size());
+  reply rep(json);
   rep.headers["Content-Type"] = "application/json";
   return rep;
 }
