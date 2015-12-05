@@ -25,6 +25,7 @@ struct request
   int http_version_major;
   int http_version_minor;
   std::map<std::string, std::string> headers;
+  bool basic_auth(const std::string& username, const std::string& password) const;
 };
 
 } // namespace server

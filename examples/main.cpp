@@ -14,6 +14,17 @@ int main(int argc, char *argv[]) {
     return rep;
   });
 
+  s.add_handler("/world", [](const request &req){
+     if (!req.basic_auth("hello", "world"))  {
+       reply rep(reply::unauthorized);
+       rep.headers["WWW-Authenticate"] = "Basic realm=\"asio_http\"";
+       return rep;
+     }
+     reply rep("Authencated");
+     rep.headers["Content-Type"] = "text/plain";
+     return rep;
+  });
+
   // Run the server until stopped.
   s.run();
   return 0;
