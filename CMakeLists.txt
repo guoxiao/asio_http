@@ -14,6 +14,7 @@ file(GLOB SOURCE_FILES src/*.cpp)
 add_library(asio_http SHARED ${SOURCE_FILES})
 target_link_libraries(asio_http pthread)
 set_property(TARGET asio_http PROPERTY CXX_STANDARD 11)
+set_property(TARGET asio_http PROPERTY CXX_STANDARD_REQUIRED TRUE)
 
 if(BUILD_EXAMPLE)
     add_executable(example examples/main.cpp)
