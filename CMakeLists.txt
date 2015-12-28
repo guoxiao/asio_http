@@ -10,6 +10,7 @@ include_directories(
     src
     include/http
 )
+add_definitions(-DASIO_STANDALONE -DRAPIDJSON_HAS_STDSTRING=1)
 file(GLOB SOURCE_FILES src/*.cpp)
 add_library(asio_http SHARED ${SOURCE_FILES})
 target_link_libraries(asio_http pthread)
