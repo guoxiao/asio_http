@@ -12,6 +12,7 @@
 #define HTTP_REQUEST_PARSER_HPP
 
 #include <tuple>
+#include <string>
 
 namespace http {
 namespace server {
