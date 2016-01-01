@@ -13,13 +13,22 @@ install:
   - sudo apt-get update -qq
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-5; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - pip install --user cpp-coveralls
 
 script:
   - cd $TRAVIS_BUILD_DIR
   - mkdir build && cd build
   - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=TRUE
   - make -j8
+  - ./example &
+  - PID=$!
+  - curl localhost:8080/hello
+  - curl localhost:8080/
+  - kill $PID
+  - coveralls -b tests --exclude deps --verbose
 
 os: linux
 
 sudo: true
+
+# vim:shiftwidth=2
