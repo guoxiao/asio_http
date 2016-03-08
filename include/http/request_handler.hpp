@@ -1,6 +1,6 @@
 /* request_handler.hpp
  *
- * Copyright (c) 2015 Guo Xiao
+ * Copyright (c) 2015-2016 Guo Xiao <guoxiao08@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
