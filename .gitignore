@@ -11,3 +11,8 @@
 *.tds
 .idea
 build/
+*.py[cod]
+GPATH
+GTAGS
+GRTAGS
+tags
