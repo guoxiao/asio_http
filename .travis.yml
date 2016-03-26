@@ -8,16 +8,7 @@ compiler:
   - gcc
 
 install:
-  - wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.1.tar.gz
-  - tar xf cmake-3.4.1.tar.gz
-  - cd cmake-3.4.1 && ./configure
-  - make -j8 >/dev/null
-  - sudo make install >/dev/null
   - cmake --version
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -qq
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-5; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - pip install --user cpp-coveralls
 
 script:
@@ -33,6 +24,7 @@ script:
   - coveralls -b tests --exclude deps --verbose
 
 os: linux
+dist: trusty
 
 sudo: true
 
