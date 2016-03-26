@@ -1,6 +1,10 @@
 # asio_http
 A simple multithread async http server based on asio
 
+[![Build Status](https://travis-ci.org/guoxiao/asio_http.svg?branch=master)](https://travis-ci.org/guoxiao/asio_http)
+[![Coverage Status](https://coveralls.io/repos/guoxiao/asio_http/badge.svg?branch=master&service=github)](https://coveralls.io/github/guoxiao/asio_http?branch=master)
+
+
 ## Usage
 
 ```cpp
