@@ -36,6 +36,7 @@
 #define HTTP_REQUEST_HANDLER_HPP
 
 #include <string>
+#include <functional>
 #include "request.hpp"
 #include "reply.hpp"
 
